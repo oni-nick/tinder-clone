@@ -1,7 +1,7 @@
 .card{
     position: relative;
     background-color: #fff;
-    width: 600px;
+    width: 400px;
     padding: 20px;
     max-width: 85vw; /* vh = vierport height, 현재 실행중인 스크린 크기에 맞춘 상대적 크기*/
     height: 50vh;
