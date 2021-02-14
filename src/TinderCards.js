@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TinderCard from 'react-tinder-card' // 이전에 설치한것
-import './TinderCards.css'
+import './TinderCards.css';
+import axios from './axios';
 
 function TinderCards() {
-    const [people, setPeople] = useState([
-        {
-            name : 'Elon Musk',
-            url
-            :'https://nypost.com/wp-content/uploads/sites/2/2018/07/tesla-debt_1.jpg?quality=80&strip=all',
-        },
-        {
-            name : 'Jeff Bezoz',
-            url
-            : 'https://api.time.com/wp-content/uploads/2020/07/jeff-bezos.jpg'
-        },
-    ]);
+    const [people, setPeople] = useState([]);
 
+    useEffect(() => {
+        async function fetchData() {
+            const req = await axios.get('/tinder/cards')
+        
+            setPeople(req.data);
+        }
+
+        fetchData();
+    }, []);
+
+    console.log(people);
 
     const swiped = (direction, nameToDelete) =>{
         console.log("removing " + nameToDelete)
@@ -36,7 +37,7 @@ function TinderCards() {
                 onCardLeftScreen={() => outOfFrame(person.name)}
             >
                     <div
-                    style={{ backgroundImage: 'url(' + person.url + ')' }}  //skip inline styling
+                    style={{ backgroundImage: 'url(' + person.imgUrl + ')' }}  //skip inline styling
                     className='card'
                     >
                         <h3>{person.name}</h3>
